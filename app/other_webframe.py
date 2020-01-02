@@ -2,6 +2,7 @@ import face_recognition
 import cv2
 import time
 import numpy as np
+import os
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
 
@@ -10,12 +11,14 @@ obama_image = face_recognition.load_image_file("imgs/obama.jpg")
 biden_image = face_recognition.load_image_file("imgs/biden.jpg")
 kinsley_image = face_recognition.load_image_file("imgs/Me.jpg")
 
-
+#app/newfaces/kil1577976956344.png
 obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
 # Load a second sample picture and learn how to recognize it. app/imgs/kins1.jpg
 
 biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
+
+
 kinsley_face_encoding = face_recognition.face_encodings(kinsley_image)[0]
 # Load a second sample picture and learn how to recognize it.
 #kin_image = face_recognition.load_image_file("imgs/kins1.jpg")
@@ -24,12 +27,12 @@ kinsley_face_encoding = face_recognition.face_encodings(kinsley_image)[0]
 known_face_encodings = [
     obama_face_encoding,
     biden_face_encoding
-    #,kinsley_face_encoding
+    ,kinsley_face_encoding
 ]
 known_face_names = [
     "Barack Obama",
     "Joe Biden"
-    #,"Kinsley"
+    ,"Kinsley"
 ]
 
 # Initialize some variables
@@ -89,9 +92,9 @@ while True:
         roi_color = frame[top:top + left, top:top + bottom]
         if name == 'Unknown':
             millis = int(round(time.time() * 1000))
-            millis ='kil' + str(millis)
+            millis ='juk' + str(millis)
             #print('jik' + millis)
-            cv2.imwrite('newfaces/' + millis + '.jpg', roi_color)
+            # cv2.imwrite('newfaces/' + millis + '.jpg', roi_color)
 
 
         # Draw a label with a name below the face

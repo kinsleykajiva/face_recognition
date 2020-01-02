@@ -3,18 +3,33 @@ import cv2
 import time
 import numpy as np
 import constants as const
+import os
+
+NEWFACES = []
+toRun = True
 
 
 def loadFacesImages(listOfImages: list):
+
     loaded_encodes = []
     loaded_labels = []
+    # print(listOfImages)
+    # print("sixe::"+str(len(listOfImages)))
     for img in listOfImages:
-        # Load a sample picture and learn how to recognize it.
-        load = face_recognition.load_image_file(const.NEW_FACES + img)
-        encode = face_recognition.face_encodings(load)[0]
-        loaded_encodes.append(encode)
-        # "".replace('.jpg' , '')
-        loaded_labels.append(img.replace('.jpg', ''))
+        if os.path.exists(img):
+            # Load a sample picture and learn how to recognize it.
+            load = face_recognition.load_image_file( img)
+            encode = face_recognition.face_encodings(load)
+            if len(encode) != 0:
+                encode = encode[0]
+                loaded_encodes.append(encode)
+                img = img.replace('.jpg', '')
+                img = img.replace('.png', '')
+                loaded_labels.append(img)
+            else:
+                # we remove the file from the folder
+                os.remove(img)
+    NEWFACES.clear()
     return loaded_labels, loaded_encodes
 
 
@@ -24,7 +39,7 @@ def runRecognition(known_face_names, known_face_encodings):
     face_encodings = []
     face_names = []
     process_this_frame = True
-    while True:
+    while toRun:
         # Grab a single frame of video
         ret, frame = video_capture.read()
         # Resize frame of video to 1/4 size for faster face recognition processing
@@ -60,14 +75,19 @@ def runRecognition(known_face_names, known_face_encodings):
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
             roi_color = frame[top:top + left, top:top + bottom]
             if name == const.UNKNOWN:
-                millis = int(round(time.time() * 1000))
-                millis = 'kil' + str(millis)
-                cv2.imwrite(const.NEW_FACES + millis + '.jpg', roi_color)
+                NEWFACES.append(saveUnknownImage(small_frame))
+
+
 
             # Draw a label with a name below the face
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+            print ('Status::'+name)
+        if len(NEWFACES) > 3:
+            print('loading new ...' )
+            reloadWithNewImages()
+
         # Display the resulting image
         cv2.imshow('Video', frame)
         # Hit 'q' on the keyboard to quit!
@@ -75,10 +95,35 @@ def runRecognition(known_face_names, known_face_encodings):
             break
 
 
+def reloadWithNewImages():
+        known_face_names, known_face_encodings =loadFacesImages(NEWFACES)
+
+        runRecognition(known_face_names, known_face_encodings)
+
+
+
+def saveUnknownImage(imageObject):
+    millis = int(round(time.time() * 1000))
+    millis = 'newfaces/' +'Hiil' + str(millis)  + '.png'
+    cv2.imwrite( millis, imageObject)
+    return millis
+
+
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
 
-known_face_names, known_face_encodings = loadFacesImages(['obama.jpg', 'biden.jpg', 'Me.jpg'])
+#load existing files
+
+for r,d,f in os.walk('newfaces/'):
+    for file in f:
+        NEWFACES.append(os.path.join(r,file))
+
+for r,d,f in os.walk('imgs/'):
+    for file in f:
+        NEWFACES.append(os.path.join(r,file))
+
+print (NEWFACES)
+known_face_names, known_face_encodings = loadFacesImages(NEWFACES)
 runRecognition(known_face_names, known_face_encodings)
 # Release handle to the webcam
 video_capture.release()
