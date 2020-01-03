@@ -6,10 +6,10 @@ import cv2
 import face_recognition
 import numpy as np
 
-NEWFACES = []
-toRun = True
+NEW_FACES = []
 
 
+# will introduce multi threading later to the loading image function and create image
 def loadFacesImages(listOfImages: list):
     loaded_encodes = []
     loaded_labels = []
@@ -29,7 +29,7 @@ def loadFacesImages(listOfImages: list):
             else:
                 # we remove the file from the folder
                 os.remove(img)
-    NEWFACES.clear()
+    NEW_FACES.clear()
     return loaded_labels, loaded_encodes
 
 
@@ -39,7 +39,7 @@ def runRecognition(known_face_names, known_face_encodings):
     face_encodings = []
     face_names = []
     process_this_frame = True
-    while toRun:
+    while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
         # Resize frame of video to 1/4 size for faster face recognition processing
@@ -75,14 +75,14 @@ def runRecognition(known_face_names, known_face_encodings):
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
             roi_color = frame[top:top + left, top:top + bottom]
             if name == const.UNKNOWN:
-                NEWFACES.append(saveUnknownImage(small_frame))
+                NEW_FACES.append(saveUnknownImage(small_frame))
 
             # Draw a label with a name below the face
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
             print('Status::' + name)
-        if len(NEWFACES) > 3:
+        if len(NEW_FACES) > 3:
             print('loading new ...')
             reloadWithNewImages()
 
@@ -94,11 +94,11 @@ def runRecognition(known_face_names, known_face_encodings):
 
 
 def reloadWithNewImages():
-    known_face_names, known_face_encodings = loadFacesImages(NEWFACES)
-
+    known_face_names, known_face_encodings = loadFacesImages(NEW_FACES)
     runRecognition(known_face_names, known_face_encodings)
 
 
+# can be run on a thread
 def saveUnknownImage(imageObject):
     millis = int(round(time.time() * 1000))
     millis = 'newfaces/' + 'Hiil' + str(millis) + '.png'
@@ -120,10 +120,17 @@ def loadFrom(folders: list):
     return files
 
 
-NEWFACES = NEWFACES + loadFrom(['imgs/', 'newfaces/'])
-# print(NEWFACES)
-known_face_names, known_face_encodings = loadFacesImages(NEWFACES)
-runRecognition(known_face_names, known_face_encodings)
-# Release handle to the webcam
-video_capture.release()
-cv2.destroyAllWindows()
+def initCall(NEW_FACES: object = None) -> object:
+    if NEW_FACES is None:
+        NEW_FACES = []
+    NEW_FACES = NEW_FACES + loadFrom(['imgs/', 'newfaces/'])
+    # print(NEWFACES)
+    known_face_names, known_face_encodings = loadFacesImages(NEW_FACES)
+    runRecognition(known_face_names, known_face_encodings)
+    # Release handle to the webcam
+    video_capture.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    initCall()
