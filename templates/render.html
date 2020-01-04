@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}} Renderer</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Phoenixcoded">
+    <meta name="keywords"
+          content="flat ui, admin , Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="Phoenixcoded">
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='assets/plugins/bootstrap/dist/css/bootstrap.min.css') }}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='assets/icon/themify-icons/themify-icons.css') }}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='assets/icon/icofont/css/icofont.css') }}">
+    <!-- flag icon framework css -->
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='assets/pages/flag-icon/flag-icon.min.css') }}">
+    <!-- Menu-Search css -->
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='assets/pages/menu-search/css/component.css') }}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/style.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/linearicons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/simple-line-icons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/ionicons.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='assets/css/jquery.mCustomScrollbar.css') }}">
+</head>
+
+<body>
+<!-- Pre-loader start -->
+<div class="theme-loader">
+    <div class="ball-scale">
+        <div></div>
+    </div>
+</div>
+<!-- Pre-loader end -->
+
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+        {% include 'header.html' %}
+
+        <!-- Sidebar chat start -->
+        {% include 'chat.html' %}
+        <!-- Sidebar inner chat start-->
+        {% include 'inner-chat.html' %}
+        <!-- Sidebar inner chat end-->
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                {% include 'left-sidebar.html' %}
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+
+                        <div class="main-body">
+                            {% with messages = get_flashed_messages(with_categories = true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if message == 'view-montor' %}
+                            {% include 'views/monitor/view-monitor.html' %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+                        <!--<div id="styleSelector">-->
+
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-button">
+        <a href="#!" class="btn btn-md btn-primary">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
+        </a>
+    </div>
+</div>
+
+
+{% include 'js_includes.html' %}
+
+</body>
+
+</html>
