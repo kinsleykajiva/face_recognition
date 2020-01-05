@@ -10,7 +10,7 @@ def conx ( ) :
 
 
 def id ( ) :
-	return str ( uuid.uuid4 () ) + '-' + str ( uuid.uuid1 () )
+	return str ( uuid.uuid4 () ) + '_-_' + str ( uuid.uuid1 () )
 
 
 def getAllUsers ( ) :
@@ -52,6 +52,10 @@ def tagImagesToPerson ( name , surname , alias_nickname , ids_imagesArr ) :
 	return res ['inserted'] > 0
 
 
+def getTaggedImages ( ) :
+	r , c = conx ()
+	return list ( r.table ( 'tag_person' ).run ( conx () ) )
+
 # def tagImagesToPerson (name,surname,alias_nickname ) :
 # 	r , c = conx ()
 #     obj = { "id":id() , "name":name,  "surname":surname,  "alias_nickname":alias_nickname,  "date_created":'2'  }
@@ -71,6 +75,11 @@ def saveImageFile ( filePath ) :
 	        "date_two" : nowToday () }
 	res = r.table ( 'faces_images' ).insert ( obj ).run ( c )
 	return res ['inserted'] > 0
+
+
+def getImageFiles ( ) :
+	r , c = conx ()
+	return list ( r.table ( 'faces_images' ).run ( conx () ) )
 
 
 if __name__ == "__main__" :
