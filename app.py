@@ -44,7 +44,7 @@ def getData ( ) :
 
 
 @app.route ( '/save-data-general' , methods=['POST'] )
-def getData ( ) :
+def getDataq ( ) :
 	data: bool = True
 	# <expression 1> if <condition> else <expression 2>
 	return jsonify ( status='ok' if data is True else 'error' , message=data )

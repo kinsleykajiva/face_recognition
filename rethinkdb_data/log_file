@@ -1,0 +1,22 @@
+2020-01-05T18:15:39.968594590 0.158914s notice: Recursively removing directory /home/kinsleykajiva/PycharmProjects/testPlatforms/rethinkdb_data/tmp
+2020-01-05T18:15:40.085545956 0.275869s notice: Initializing directory /home/kinsleykajiva/PycharmProjects/testPlatforms/rethinkdb_data
+2020-01-05T18:15:40.086007614 0.276325s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/kinsleykajiva/PycharmProjects/testPlatforms/rethinkdb_data' did not already exist or is empty.)
+2020-01-05T18:15:40.097443896 0.287762s notice: Running rethinkdb 2.3.6.srh.1~0bionic (CLANG 6.0.0 (tags/RELEASE_600/final))...
+2020-01-05T18:15:40.103272937 0.293597s notice: Running on Linux 4.15.0-51-generic x86_64
+2020-01-05T18:15:40.103695412 0.294013s notice: Loading data from directory /home/kinsleykajiva/PycharmProjects/testPlatforms/rethinkdb_data
+2020-01-05T18:15:40.999550059 1.189874s info: Automatically using cache size of 1298 MB
+2020-01-05T18:15:41.056589923 1.246907s notice: Listening for intracluster connections on port 29015
+2020-01-05T18:15:41.076866378 1.267183s notice: Listening for client driver connections on port 28015
+2020-01-05T18:15:41.077019699 1.267336s notice: Listening for administrative HTTP connections on port 8080
+2020-01-05T18:15:41.077031612 1.267348s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2020-01-05T18:15:41.077036004 1.267352s notice: Listening on driver addresses: 127.0.0.1, ::1
+2020-01-05T18:15:41.077043114 1.267359s notice: Listening on http addresses: 127.0.0.1, ::1
+2020-01-05T18:15:41.077047088 1.267363s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2020-01-05T18:15:41.077054556 1.267371s notice: Server ready, "xlocal_76f" f62bed6c-7ae9-4bb9-ad70-b1a6098aec50
+2020-01-05T18:15:41.307310099 1.497627s warn: Problem when checking for new versions of RethinkDB: HTTP request to update.rethinkdb.com failed.
+2020-01-05T18:40:44.723735044 1504.914052s info: Table 58dbb413-12dc-4444-8c77-c7a9da5a788e: Starting a new Raft election for term 1.
+2020-01-05T18:40:44.724228567 1504.914546s info: Table 58dbb413-12dc-4444-8c77-c7a9da5a788e: Added replica on this server.
+2020-01-05T18:40:44.890375226 1505.080693s info: Table 58dbb413-12dc-4444-8c77-c7a9da5a788e: This server is Raft leader for term 1. Latest log index is 0.
+2020-01-05T18:40:52.107694473 1512.298011s info: Table d6d5e685-addd-4d28-8821-7813a805796a: Starting a new Raft election for term 1.
+2020-01-05T18:40:52.107997353 1512.298314s info: Table d6d5e685-addd-4d28-8821-7813a805796a: Added replica on this server.
+2020-01-05T18:40:52.289585008 1512.479902s info: Table d6d5e685-addd-4d28-8821-7813a805796a: This server is Raft leader for term 1. Latest log index is 0.

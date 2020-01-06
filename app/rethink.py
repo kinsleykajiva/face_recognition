@@ -39,13 +39,15 @@ def updateTagImagesPerson ( id_record , ids_imagesArr ) :
 	return res ['replaced'] > 0
 
 
-def tagImagesToPerson ( name , surname , alias_nickname , ids_imagesArr ) :
+def tagImagesToPerson ( name , surname , alias_nickname , ids_imagesArr,sex,notes ) :
 	r , c = conx ()
 	obj = {
 		"name" : name ,
 		"surname" : surname ,
+		"sex" : sex ,
 		"alias_nickname" : alias_nickname ,
 		"date_created" : nowToday () ,
+		"notes" : notes ,
 		"id_images" : ids_imagesArr
 	}
 	res = r.table ( 'tag_person' ).insert ( obj ).run ( c )
@@ -54,7 +56,7 @@ def tagImagesToPerson ( name , surname , alias_nickname , ids_imagesArr ) :
 
 def getTaggedImages ( ) :
 	r , c = conx ()
-	return list ( r.table ( 'tag_person' ).run ( conx () ) )
+	return list ( r.table ( 'tag_person' ).run ( c ) )
 
 # def tagImagesToPerson (name,surname,alias_nickname ) :
 # 	r , c = conx ()
@@ -79,13 +81,14 @@ def saveImageFile ( filePath ) :
 
 def getImageFiles ( ) :
 	r , c = conx ()
-	return list ( r.table ( 'faces_images' ).run ( conx () ) )
+	return list ( r.table ( 'faces_images' ).run ( c ) )
 
 
 if __name__ == "__main__" :
 	# usersList = list ( r.table ( 'users' ).run ( conx() ) )
+	print (getTaggedImages())
 	# print (usersList[0]['id'])
-	print ( updateTagImagesPerson ( '809f5ee9-b016-4e83-99a9-e36debf3fbb0' , [id () , id () , id () , id ()] ) )
+	# print ( updateTagImagesPerson ( '809f5ee9-b016-4e83-99a9-e36debf3fbb0' , [id () , id () , id () , id ()] ) )
 	for x in range ( 1 ) :
 		pass
 		# print ( tagImagesToPerson( 'name','surname','alias_nickname',[id(),id(),id(),id(),id(),id(),id(),id()] ) )

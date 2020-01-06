@@ -12,13 +12,13 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Full Name</th>
-                    <th>Date</th>
-                    <th>Picture</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Date</th>
+                        <th>Picture</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody id="tbody_data">
 
@@ -27,4 +27,191 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="" id="TagNewFaceDialog" data-izimodal-title="Add Person Dialog">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="">
+                <div class="card-block">
+                    <div class="row">
+
+                        <div class="card-block">
+
+                            <form onsubmit="return false;" style="display: none;">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                       <div class="form-group ">
+                                        <label class="">Name</label> <br>
+                                        <div class="">
+                                            <input type="text" id="faceName" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group ">
+                                        <label class="">Surname</label> <br>
+                                        <div class="">
+                                            <input type="text" id="faceSurname" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Alias</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="faceAlias" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Gender</label>
+                                <div class="col-sm-10">
+                                    <select name="select" id="faceSex" class="form-control">
+                                        <option value="null" selected="selected">Select</option>
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Notes</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="5" cols="5" id="faceNotes" class="form-control"
+                                    placeholder="any notes on the face/person"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <button onclick="onSaveNewFace()"
+                                    class="btn btn-info btn-round btn-sm ">Save <i
+                                    class="fa fa-arrow-save"></i></button>
+
+                        </form>
+
+                        <!-- start gallery -->
+                        <style class="cp-pen-styles">.nopad {
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                }
+                /*image gallery*/
+                .image-checkbox {
+                    cursor: pointer;
+                    box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    border: 4px solid transparent;
+                    margin-bottom: 0;
+                    outline: 0;
+                }
+                .image-checkbox input[type="checkbox"] {
+                    display: none;
+                }
+    
+                .image-checkbox-checked {
+                    border-color: #4783B0;
+                }
+                .image-checkbox .fa {
+                    position: absolute;
+                    color: #4A79A3;
+                    background-color: #fff;
+                    padding: 10px;
+                    top: 0;
+                    right: 0;
+                }
+                .image-checkbox-checked .fa {
+                    display: block !important;
+                }</style>
+                        <div class="container">
+                            <div class="col-lg-6">
+                                <div class="row m-b-20">
+                                            <div class="col">
+                                                 <label class="image-checkbox">
+                                                <img class="img-fluid img-thumbnail"
+                                                                       src="{{ url_for('static', filename='assets/images/user-profile/user-img.jpg') }}"
+                                                                       alt="Gallery-1">
+                                                                        <input name="image[]" value="" type="checkbox">
+                                                                        
+                                                                       </label>
+                                            </div>
+                                            <div class="col">
+                                                 <label class="image-checkbox">
+                                                <img class="img-fluid img-thumbnail"
+                                                                       src="{{ url_for('static', filename='assets/images/user-profile/user-img.jpg') }}"
+                                                                       alt="Gallery-2">
+                                                                        <input name="image[]" value="" type="checkbox">
+                                                                       </label>
+                                            </div>
+                                            <div class="col">
+                                                 <label class="image-checkbox">
+                                                <img class="img-fluid img-thumbnail"
+                                                                       src="{{ url_for('static', filename='assets/images/user-profile/user-img.jpg') }}"
+                                                                       alt="Gallery-3">
+                                                                        <input name="image[]" value="" type="checkbox">
+                                                                       </label>
+                                            </div>
+                                             <div class="col">
+                                                 <label class="image-checkbox">
+                                                <img class="img-fluid img-thumbnail"
+                                                                       src="{{ url_for('static', filename='assets/images/user-profile/user-img.jpg') }}"
+                                                                       alt="Gallery-3">
+                                                                        <input name="image[]" value="" type="checkbox">
+                                                                       </label>
+                                            </div>
+                                        </div>
+                            </div>
+                            <!-- <h3>Bootstrap image checkbox(multiple)</h3>
+                           <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                    <label class="image-checkbox">
+                        <img class="img-responsive" width="220" src="https://dummyimage.com/600x400/000/fff">
+                        <input name="image[]" value="" type="checkbox">
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                    <label class="image-checkbox">
+                        <img class="img-responsive"  width="220"  src="https://dummyimage.com/600x400/000/fff">
+                        <input name="image[]" value="" type="checkbox">
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                    <label class="image-checkbox">
+                        <img class="img-responsive"  width="220"  src="https://dummyimage.com/600x400/000/fff">
+                        <input name="image[]" value="" type="checkbox">
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                    <label class="image-checkbox">
+                        <img class="img-responsive"  width="220"  src="https://dummyimage.com/600x400/000/fff">
+                        <input name="image[]" value="" type="checkbox">
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                    <label class="image-checkbox">
+                        <img class="img-responsive"  width="220"   src="https://dummyimage.com/600x400/000/fff">
+                        <input name="image[]" value="" type="checkbox">
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div> -->
+                                    
+                        </div>
+                        
+                        <!-- gallery end -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
